@@ -1,0 +1,35 @@
+import java.util.List;
+
+public class Backend implements BackendInterface {
+  private AdvancedGraphADT<GraphADT> graph;
+
+  public Backend() {graph = new CS400Graph<>();}
+
+  @Override public List<String> getCities(String cityName) {
+    return graph.getConnectedVertices(cityName);
+  }
+
+  @Override public List<String> getCitiesWithinDistance(String cityName, int distance) {
+    CS400Graph.Vertex start = new CS400Graph.Vertex(cityName);
+    for (CS400Graph.Vertex each : graph.)
+  }
+
+  @Override public String getShortestPath(String city1, String city2) {
+    return graph.shortestPath(city1,city2).toString();
+  }
+
+  @Override public String getFurthestCity(String cityName) {
+    List<String> all = getCities(cityName);
+  }
+
+  @Override public List<RouteInterface> getPath(List<String> waypoints) {
+    String p = new String();
+    for (int i = 0; i < waypoints.size(); i++) {
+      String curr = waypoints.get(i);
+      String next = waypoints.get(i+1);
+      p += getShortestPath(curr,next).split("]");
+    }
+    p += "]";
+    return p;
+  }
+}

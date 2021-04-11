@@ -1,0 +1,30 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+public class RouteReaderDummy extends CS400Graph implements RouteReaderInterface{
+
+  @Override public List<String> getCities() {
+    ArrayList<String> a = new ArrayList<String>();
+    a.add("A");
+    a.add("B");
+    a.add("C");
+    a.add("D");
+    a.add("E");
+    return a;
+  }
+  @Override public List<RouteInterface> getRoutes() {
+    ArrayList<RouteInterface> routes = new ArrayList<RouteInterface>();
+    routes.add(new RouteInterface() {
+      @Override public String[] getEndpoints() {
+        String[] cities = {"A","B","C","D","E"};
+        return cities;
+      }
+
+      @Override public int getLength() {
+        return 1;
+      }
+    });
+    return routes;
+  }
+}
