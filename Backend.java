@@ -47,7 +47,7 @@ public class Backend {
   }
 
   /**
-   *
+   * xx
    * @param city1
    * @param city2
    * @return
