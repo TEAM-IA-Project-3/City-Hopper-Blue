@@ -135,10 +135,10 @@ public class Backend {
     RouteReaderInterface reader= new RouteReader(data);
     List<String> cities = reader.getCities();
     List<RouteInterface> routes = reader.getRoutes();
-    for (String city: cities) {
+    for (String city: cities) { //add all cities
       this.insertVertex(city);
     }
-    for (RouteInterface route: routes) {
+    for (RouteInterface route: routes) { //add both directions
       this.insertEdge(route.getEndpoints()[0],route.getEndpoints()[1],route.getLength());
       this.insertEdge(route.getEndpoints()[1],route.getEndpoints()[0],route.getLength());
     }
