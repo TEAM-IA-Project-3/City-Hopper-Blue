@@ -40,8 +40,8 @@ public class Backend {
    */
   public List<String> getCitiesWithinDistance(String cityName, int distance) {
     List<String> cities = new ArrayList<>();
-    for (String each: vertices.keySet()) {
-      if (!cityName.equals(each)) {
+    for (String each: vertices.keySet()) { //loop over keys
+      if (!cityName.equals(each)) { //not itself
         if (getPathCost(cityName,each) <= distance) {
           cities.add(each);
         }
@@ -72,7 +72,7 @@ public class Backend {
       if (!cityName.equals(each)) {
         int cityCost = getPathCost(cityName,each);
         if (cityCost >= distance) {
-          distance = cityCost;
+          distance = cityCost; //update if find a further one
           city = each;
         }
       }
@@ -88,6 +88,7 @@ public class Backend {
   public List<RouteInterface> getPath(List<String> waypoints) {
     List<RouteInterface> allRoutes = new ArrayList<>();
     for (int i = 0; i < waypoints.size()-1; i++) {
+      //get the route from each waypoint to another
       Route route = new Route(waypoints.get(i), waypoints.get(i+1), getPathCost(waypoints.get(i),waypoints.get(i+1)));
       allRoutes.add(route);
     }

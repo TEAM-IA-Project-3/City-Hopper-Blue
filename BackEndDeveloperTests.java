@@ -79,8 +79,9 @@ public class BackEndDeveloperTests {
             "C,F,9"));
     assertTrue(
         b.getCities("A").toString().contains("E") &&
-        b.getCities("A").toString().contains("B") &&
-        b.getCities("A").toString().contains("D"));
+            b.getCities("A").toString().contains("B") &&
+            b.getCities("A").toString().contains("C") &&
+            b.getCities("A").toString().contains("D"));
   }
 
   /**
