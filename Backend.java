@@ -1,10 +1,14 @@
 // --== CS400 File Header Information ==--
 // Name: Jijie Zhang
 // Email: jzhang998@wisc.edu
-// Team: IA
+// Team: IA Blue
+// Role: Backend Developer
 // TA: Sid
 // Lecturer: Gary
-// Notes to Grader: None
+// Notes to Grader: This backend is modified from original CS400Graph.java and added several methods
+//                  to realize functionalities we want. One distinctive difference is the path
+//                  between two cities is two-sided which makes more sense in real world that we
+//                  can travel from one to another using the same route.
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.Reader;
@@ -29,10 +33,10 @@ public class Backend {
   }
 
   /**
-   * This realizes the functionality of get
-   * @param cityName
-   * @param distance
-   * @return
+   * This realizes the functionality of get cities within given distance.
+   * @param cityName the starting city
+   * @param distance distance in reach
+   * @return list of city names
    */
   public List<String> getCitiesWithinDistance(String cityName, int distance) {
     List<String> cities = new ArrayList<>();
@@ -47,27 +51,28 @@ public class Backend {
   }
 
   /**
-   * xx
-   * @param city1
-   * @param city2
-   * @return
+   * This uses dijkstras ShortestPath algorithm to get shortest path between two cities.
+   * @param city1 start
+   * @param city2 end
+   * @return shortest path
    */
   public String getShortestPath(String city1, String city2) {
     return shortestPath(city1, city2).toString();
   }
 
   /**
-   *
-   * @param cityName
-   * @return
+   * This gives the furthest city from a given city
+   * @param cityName start
+   * @return furthest city name
    */
   public String getFurthestCity(String cityName) {
-    String city = "";
+    String city = null;
     int distance = 0;
     for (String each: vertices.keySet()) {
       if (!cityName.equals(each)) {
-        if (getPathCost(cityName,each) >= distance) {
-          distance = getPathCost(cityName, each);
+        int cityCost = getPathCost(cityName,each);
+        if (cityCost >= distance) {
+          distance = cityCost;
           city = each;
         }
       }
@@ -76,9 +81,9 @@ public class Backend {
   }
 
   /**
-   *
-   * @param waypoints
-   * @return
+   * This gives a path with given waypoints
+   * @param waypoints List of city names(strings) that should pass
+   * @return list of RouteInterfaces
    */
   public List<RouteInterface> getPath(List<String> waypoints) {
     List<RouteInterface> allRoutes = new ArrayList<>();
@@ -121,7 +126,7 @@ public class Backend {
   protected Hashtable<String, Vertex> vertices; // holds graph verticies, key=data
 
   /**
-   *
+   * This constructs Backend with given reader.
    * @param data
    */
   public Backend(Reader data) {
@@ -134,11 +139,12 @@ public class Backend {
     }
     for (RouteInterface route: routes) {
       this.insertEdge(route.getEndpoints()[0],route.getEndpoints()[1],route.getLength());
+      this.insertEdge(route.getEndpoints()[1],route.getEndpoints()[0],route.getLength());
     }
   }
 
   /**
-   *
+   * This constructs Backend with given string.
    * @param data
    * @throws FileNotFoundException
    */

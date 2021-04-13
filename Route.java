@@ -3,11 +3,8 @@ public class Route implements RouteInterface {
   private int length;
 
   public Route(String city1, String city2, int length) {
-    if (city1.compareTo(city2) <= 0) {
-      endpoints = new String[] {city1, city2};
-    } else {
-      endpoints = new String[] {city2, city1};
-    }
+    endpoints = new String[] {city1, city2};
+
     this.length = length;
   }
 
