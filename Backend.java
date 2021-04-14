@@ -162,7 +162,7 @@ public class Backend implements BackendInterface {
    */
   public boolean insertVertex(String data) {
     if(data == null)
-      throw new NullPointerException("Cannot add null vertex");
+      throw new NoSuchElementException("Cannot add null vertex");
     if(vertices.containsKey(data)) return false; // duplicate values are not allowed
     vertices.put(data, new Vertex(data));
     return true;
@@ -207,14 +207,15 @@ public class Backend implements BackendInterface {
    * @throws NullPointerException if either source or target or both are null
    */
   public boolean insertEdge(String source, String target, int weight) {
-    if(source == null || target == null)
-      throw new NullPointerException("Cannot add edge with null source or target");
+    if(source == null || target == null) {
+      throw new NoSuchElementException("City not exist");
+    }
     Vertex sourceVertex = this.vertices.get(source);
     Vertex targetVertex = this.vertices.get(target);
     if(sourceVertex == null || targetVertex == null)
-      throw new IllegalArgumentException("Cannot add edge with vertices that do not exist");
+      throw new NoSuchElementException("Cannot add edge with vertices that do not exist");
     if(weight < 0)
-      throw new IllegalArgumentException("Cannot add edge with negative weight");
+      throw new NoSuchElementException("Cannot add edge with negative weight");
     // handle cases where edge already exists between these verticies
     for(Edge e : sourceVertex.edgesLeaving)
       if(e.target == targetVertex) {
@@ -290,15 +291,13 @@ public class Backend implements BackendInterface {
    * @param source the data item contained in the source vertex for the edge
    * @param target the data item contained in the target vertex for the edge
    * @return the weight of the edge (0 or positive integer)
-   * @throws IllegalArgumentException if either sourceVertex or targetVertex or both are not in the graph
-   * @throws NullPointerException if either sourceVertex or targetVertex or both are null
    * @throws NoSuchElementException if edge is not in the graph
    */
   public int getWeight(String source, String target) {
     if(source == null || target == null) throw new NullPointerException("Cannot contain weighted edge adjacent to null data");
     Vertex sourceVertex = vertices.get(source);
     Vertex targetVertex = vertices.get(target);
-    if(sourceVertex == null || targetVertex == null) throw new IllegalArgumentException("Cannot retrieve weight of edge between vertices that do not exist");
+    if(sourceVertex == null || targetVertex == null) throw new NoSuchElementException("Cannot retrieve weight of edge between vertices that do not exist");
     for(Edge e : sourceVertex.edgesLeaving)
       if(e.target == targetVertex)
         return e.weight;
