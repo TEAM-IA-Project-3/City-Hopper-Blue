@@ -22,9 +22,13 @@ public class Backend implements BackendInterface {
    * This realizes the functionality of taking a city and get its connected cities.
    * @param city
    * @return List<String>
+   * @throws NoSuchElementException no city exist
    */
-  public List<String> getCities(String city) {
+  public List<String> getCities(String city) throws NoSuchElementException {
     List<String> connect = new ArrayList<>();
+    if (!containsVertex(city) || city == null) {
+      throw new NoSuchElementException("city not exist");
+    }
     Vertex cur = vertices.get(city);
     for (Edge each: cur.edgesLeaving) {
       connect.add(each.target.data);
@@ -291,7 +295,7 @@ public class Backend implements BackendInterface {
    * @throws NoSuchElementException if edge is not in the graph
    */
   public int getWeight(String source, String target) {
-    if(source == null || target == null) throw new NullPointerException("Cannot contain weighted edge adjacent to null data");
+    if(source == null || target == null) throw new NoSuchElementException("Cannot contain weighted edge adjacent to null data");
     Vertex sourceVertex = vertices.get(source);
     Vertex targetVertex = vertices.get(target);
     if(sourceVertex == null || targetVertex == null) throw new NoSuchElementException("Cannot retrieve weight of edge between vertices that do not exist");
