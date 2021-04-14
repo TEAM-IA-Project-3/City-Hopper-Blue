@@ -175,10 +175,10 @@ public class Backend implements BackendInterface {
    *
    * @param data the data item stored in the vertex to remove
    * @return true if a vertex with *data* has been removed, false if it was not in the graph
-   * @throws NullPointerException if data is null
+   * @throws NoSuchElementException if data is null
    */
   public boolean removeVertex(String data) {
-    if(data == null) throw new NullPointerException("Cannot remove null vertex");
+    if(data == null) throw new NoSuchElementException("Cannot remove null vertex");
     Vertex removeVertex = vertices.get(data);
     if(removeVertex == null) return false; // vertex not found within graph
     // search all vertices for edges targeting removeVertex
@@ -232,10 +232,10 @@ public class Backend implements BackendInterface {
    * @param source the data item contained in the source vertex for the edge
    * @param target the data item contained in the target vertex for the edge
    * @return true if the edge could be removed, false if it was not in the graph
-   * @throws NullPointerException if either source or target or both are null
+   * @throws NoSuchElementException if either source or target or both are null
    */
   public boolean removeEdge(String source, String target) {
-    if(source == null || target == null) throw new NullPointerException("Cannot remove edge with null source or target");
+    if(source == null || target == null) throw new NoSuchElementException("Cannot remove edge with null source or target");
     Vertex sourceVertex = this.vertices.get(source);
     Vertex targetVertex = this.vertices.get(target);
     if(sourceVertex == null || targetVertex == null) throw new NoSuchElementException("Cannot remove edge with vertices that do not exist");
@@ -256,10 +256,10 @@ public class Backend implements BackendInterface {
    *
    * @param data the data item to check for
    * @return true if data item is stored in a vertex of the graph, false otherwise
-   * @throws NullPointerException if *data* is null
+   * @throws NoSuchElementException if *data* is null
    */
   public boolean containsVertex(String data) {
-    if(data == null) throw new NullPointerException("Cannot contain null data vertex");
+    if(data == null) throw new NoSuchElementException("Cannot contain null data vertex");
     return vertices.containsKey(data);
   }
 
