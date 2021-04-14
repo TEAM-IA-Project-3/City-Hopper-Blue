@@ -202,8 +202,6 @@ public class Backend implements BackendInterface {
    * @param weight the weight for the edge (has to be a positive integer)
    * @return true if the edge could be inserted or its weight updated, false
    *     if the edge with the same weight was already in the graph
-   * @throws IllegalArgumentException if either source or target or both are not in the graph,
-   *     or if its weight is < 0
    * @throws NullPointerException if either source or target or both are null
    */
   public boolean insertEdge(String source, String target, int weight) {
@@ -234,14 +232,13 @@ public class Backend implements BackendInterface {
    * @param source the data item contained in the source vertex for the edge
    * @param target the data item contained in the target vertex for the edge
    * @return true if the edge could be removed, false if it was not in the graph
-   * @throws IllegalArgumentException if either source or target or both are not in the graph
    * @throws NullPointerException if either source or target or both are null
    */
   public boolean removeEdge(String source, String target) {
     if(source == null || target == null) throw new NullPointerException("Cannot remove edge with null source or target");
     Vertex sourceVertex = this.vertices.get(source);
     Vertex targetVertex = this.vertices.get(target);
-    if(sourceVertex == null || targetVertex == null) throw new IllegalArgumentException("Cannot remove edge with vertices that do not exist");
+    if(sourceVertex == null || targetVertex == null) throw new NoSuchElementException("Cannot remove edge with vertices that do not exist");
     // find edge to remove
     Edge removeEdge = null;
     for(Edge e : sourceVertex.edgesLeaving)
