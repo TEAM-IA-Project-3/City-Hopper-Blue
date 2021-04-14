@@ -269,10 +269,10 @@ public class Backend implements BackendInterface {
    * @param source the data item contained in the source vertex for the edge
    * @param target the data item contained in the target vertex for the edge
    * @return true if the edge is in the graph, false if it is not in the graph
-   * @throws NullPointerException if either source or target or both are null
+   * @throws NoSuchElementException if either source or target or both are null
    */
   public boolean containsEdge(String source, String target) {
-    if(source == null || target == null) throw new NullPointerException("Cannot contain edge adjacent to null data");
+    if(source == null || target == null) throw new NoSuchElementException("Cannot contain edge adjacent to null data");
     Vertex sourceVertex = vertices.get(source);
     Vertex targetVertex = vertices.get(target);
     if(sourceVertex == null) return false;
