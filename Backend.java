@@ -17,7 +17,7 @@ import java.util.*;
 /**
  * This is the Backend class.
  */
-public class Backend {
+public class Backend implements BackendInterface {
   /**
    * This realizes the functionality of taking a city and get its connected cities.
    * @param city
