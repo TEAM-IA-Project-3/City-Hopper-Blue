@@ -26,12 +26,12 @@ public class Backend implements BackendInterface {
    */
   public List<String> getCities(String city) throws NoSuchElementException {
     List<String> connect = new ArrayList<>();
-    if (!containsVertex(city) || city == null) {
+    if (!containsVertex(city) || city == null) { //if city not exist or null, throw
       throw new NoSuchElementException("city not exist");
     }
     Vertex cur = vertices.get(city);
-    for (Edge each: cur.edgesLeaving) {
-      connect.add(each.target.data);
+    for (Edge each: cur.edgesLeaving) { //loop over each edge
+      connect.add(each.target.data); //add each city
     }
     return connect;
   }
@@ -46,7 +46,7 @@ public class Backend implements BackendInterface {
     List<String> cities = new ArrayList<>();
     for (String each: vertices.keySet()) { //loop over keys
       if (!cityName.equals(each)) { //not itself
-        if (getPathCost(cityName,each) <= distance) {
+        if (getPathCost(cityName,each) <= distance) { //if distance is within given distance, add
           cities.add(each);
         }
       }
@@ -61,7 +61,7 @@ public class Backend implements BackendInterface {
    * @return shortest path
    */
   public String getShortestPath(String city1, String city2) {
-    return shortestPath(city1, city2).toString();
+    return shortestPath(city1, city2).toString(); //return shortest path
   }
 
   /**
@@ -73,9 +73,9 @@ public class Backend implements BackendInterface {
     String city = null;
     int distance = 0;
     for (String each: vertices.keySet()) {
-      if (!cityName.equals(each)) {
+      if (!cityName.equals(each)) { //update but not not with itself
         int cityCost = getPathCost(cityName,each);
-        if (cityCost >= distance) {
+        if (cityCost >= distance) { //every time distance is larger
           distance = cityCost; //update if find a further one
           city = each;
         }
@@ -142,7 +142,8 @@ public class Backend implements BackendInterface {
     for (String city: cities) { //add all cities
       this.insertVertex(city);
     }
-    for (RouteInterface route: routes) { //add both directions
+    for (RouteInterface route: routes) {
+      //add both directions
       this.insertEdge(route.getEndpoints()[0],route.getEndpoints()[1],route.getLength());
       this.insertEdge(route.getEndpoints()[1],route.getEndpoints()[0],route.getLength());
     }
