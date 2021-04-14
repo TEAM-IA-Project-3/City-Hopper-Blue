@@ -158,7 +158,7 @@ public class Backend implements BackendInterface {
    * @param data the data item stored in the new vertex
    * @return true if the data can be inserted as a new vertex, false if it is
    *     already in the graph
-   * @throws NullPointerException if data is null
+   * @throws NoSuchElementException if data is null
    */
   public boolean insertVertex(String data) {
     if(data == null)
