@@ -202,7 +202,7 @@ public class Backend implements BackendInterface {
    * @param weight the weight for the edge (has to be a positive integer)
    * @return true if the edge could be inserted or its weight updated, false
    *     if the edge with the same weight was already in the graph
-   * @throws NullPointerException if either source or target or both are null
+   * @throws NoSuchElementException if either source or target or both are null
    */
   public boolean insertEdge(String source, String target, int weight) {
     if(source == null || target == null) {
