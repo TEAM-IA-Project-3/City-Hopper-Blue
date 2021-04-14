@@ -8,11 +8,8 @@
 // Notes to Grader: This test uses letters to represent cities for convenience.
 
 import org.junit.Test;
-
-import java.io.FileNotFoundException;
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
